@@ -1,9 +1,26 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import {
+  act,
+  render,
+  fireEvent,
+  cleanup,
+  waitForElement,
+  wait,
+} from "@testing-library/react";
+import App from "./app";
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+//jest.mock("axios");
+afterEach(cleanup)
+describe("App", () => {
+  
+  test("should fetch data on mount", async () => {
+    //axios.get.mockImplementation(() => Promise.resolve({ data: data }));
+    
+    const { container } = render(
+      <App />
+    );
+    expect(container.getElementsByTagName('h2')).toBeDefined();
+    expect(container.getElementsByTagName('CountryTable')).toBeDefined();
+  });
 });
